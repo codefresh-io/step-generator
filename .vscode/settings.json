@@ -1,0 +1,12 @@
+{
+    "go.useLanguageServer": true,
+    "[go]": {
+        "editor.snippetSuggestions": "none",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "files.eol": "\n", // formatting only supports LF line endings
+    "yaml.schemaStore.enable": true,
+}

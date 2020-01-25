@@ -1,0 +1,27 @@
+version: '1.0'
+
+steps:
+  main_clone:
+    type: git-clone
+    repo: codefresh-io/step-generator
+    git: cf_github
+    revision: ${{CF_REVISION}}
+
+  version:
+    image: codefresh/cli
+    commands:
+    - cf_export VERSION=$(yq -r ".metadata.version" build/cli.yaml)    
+
+  git-tag:
+    title: Push tag to git
+    image: codefresh/cli
+    commands:
+    - git remote rm origin
+    - git remote add origin https://codefresh:${{GITHUB_TOKEN}}@github.com/codefresh-io/step-generator.git
+    - git tag ${{VERSION}}
+    - git push --tags
+    fail_fast: false
+    when:
+      branch:
+        only:
+        - master

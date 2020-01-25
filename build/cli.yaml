@@ -1,0 +1,54 @@
+metadata:
+  name: step-generator
+  description: Quickly generate Codefresh step-types
+  version: 0.1.0
+  maintainers:
+    - Oleg Sucharevich
+loose: true
+flags:
+  - name: verbose
+    description: "Set to see more logs"
+    alias:
+      - v
+    default: false
+    envVar: "VERBOSE"
+    type: bool
+    required: true
+commands:
+  - name: compose
+    arg:
+      name: name
+      rules:
+        - exactlyOne
+    flags:
+    - name: left-delimiter
+      type: string
+      default: "[["
+    - name: right-delimiter
+      type: string
+      default: "]]"
+    - name: spec-file
+      type: string
+    - name: arguments-json-file
+      type: string
+    - name: returns-json-file
+      type: string
+    - name: description-file
+      type: string
+    - name: version
+      type: string
+      default: "0.1.0"
+    - name: official
+      type: bool
+    - name: tags
+      type: arrayString
+    - name: maintainer-name
+      type: string
+    - name: maintainer-email
+      type: string
+    - name: account
+      type: string
+    - name: is-public
+      type: bool
+    - name: out
+      type: string
