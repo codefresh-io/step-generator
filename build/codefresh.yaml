@@ -17,7 +17,7 @@ steps:
     image: codefresh/cli
     commands:
     - git remote rm origin
-    - git remote add origin https://codefresh-io:${{GITHUB_TOKEN}}@github.com/codefresh-io/step-generator.git
+    - git remote add origin https://${{GITHUB_TOKEN}}@github.com/codefresh-io/step-generator.git
     - git tag ${{VERSION}}
     - git push --tags
     fail_fast: false
