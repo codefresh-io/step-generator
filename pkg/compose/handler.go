@@ -27,8 +27,8 @@ func (g *Handler) Handle(cnf *viper.Viper) error {
 		},
 		Spec: Spec{
 			Delimiters: Delimiters{
-				Left:  cnf.GetString("left-delimiter"),
-				Right: cnf.GetString("right-delimiter"),
+				Left:  cnf.GetString("leftDelimiter"),
+				Right: cnf.GetString("rightDelimiter"),
 			},
 		},
 	}
@@ -40,8 +40,9 @@ func (g *Handler) Handle(cnf *viper.Viper) error {
 	} else {
 		res.Metadata.Name = name
 	}
-	specFilePath := cnf.GetString("spec-file")
+	specFilePath := cnf.GetString("specFile")
 	if specFilePath != "" {
+		fmt.Printf("Reading spec file %s\n", specFilePath)
 		specFileBytes, err := ioutil.ReadFile(specFilePath)
 		res.Spec.StepsTemplate = string(specFileBytes)
 		if err != nil {
@@ -49,8 +50,9 @@ func (g *Handler) Handle(cnf *viper.Viper) error {
 		}
 	}
 
-	argumentsJSONFilePath := cnf.GetString("arguments-json-file")
+	argumentsJSONFilePath := cnf.GetString("argumentsJsonFile")
 	if specFilePath != "" {
+		fmt.Printf("Reading arguments json file %s\n", specFilePath)
 		argumentsJSONBytes, err := ioutil.ReadFile(argumentsJSONFilePath)
 		res.Spec.Arguments = string(argumentsJSONBytes)
 		if err != nil {
@@ -58,8 +60,9 @@ func (g *Handler) Handle(cnf *viper.Viper) error {
 		}
 	}
 
-	returnsJSONFilePath := cnf.GetString("returns-json-file")
-	if specFilePath != "" {
+	returnsJSONFilePath := cnf.GetString("returnsJsonFile")
+	if returnsJSONFilePath != "" {
+		fmt.Printf("Reading returns json file %s\n", returnsJSONFilePath)
 		returnsJSONBytes, err := ioutil.ReadFile(returnsJSONFilePath)
 		res.Spec.Returns = string(returnsJSONBytes)
 		if err != nil {
@@ -67,8 +70,9 @@ func (g *Handler) Handle(cnf *viper.Viper) error {
 		}
 	}
 
-	descriptionFilePath := cnf.GetString("description-file")
-	if specFilePath != "" {
+	descriptionFilePath := cnf.GetString("descriptionFile")
+	if descriptionFilePath != "" {
+		fmt.Printf("Reading description file %s\n", descriptionFilePath)
 		descriptionBytes, err := ioutil.ReadFile(descriptionFilePath)
 		res.Metadata.Description = string(descriptionBytes)
 		if err != nil {

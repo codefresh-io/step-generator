@@ -20,7 +20,7 @@ var rootCmdOptions struct {
 
 var rootCmd = &cobra.Command{
 	Use:     "step-generator",
-	Version: "0.5.0",
+	Version: "0.6.0",
 	Long: "Quickly generate Codefresh step-types",
 	PreRun: func(cmd *cobra.Command, args []string) {
 		

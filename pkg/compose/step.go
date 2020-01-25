@@ -29,19 +29,15 @@ type Metadata struct {
 	Name        string       `json:"name"`
 	Version     string       `json:"version"`
 	IsPublic    bool         `json:"isPublic"`
-	Description string       `json:"description"`
-	Sources     []string     `json:"sources"`
-	Stage       string       `json:"stage"`
-	Maintainers []Maintainer `json:"maintainers"`
-	Categories  []string     `json:"categories"`
-	Official    bool         `json:"official"`
-	Tags        []string     `json:"tags"`
-	Icon        Icon         `json:"icon"`
-	Examples    []Example    `json:"examples"`
-	CreatedAt   string       `json:"created_at"`
-	UpdatedAt   string       `json:"updated_at"`
-	Latest      bool         `json:"latest"`
-	ID          string       `json:"id"`
+	Description string       `json:"description,omitempty"`
+	Sources     []string     `json:"sources,omitempty"`
+	Stage       string       `json:"stage,omitempty"`
+	Maintainers []Maintainer `json:"maintainers,omitempty"`
+	Categories  []string     `json:"categories,omitempty"`
+	Official    bool         `json:"official,omitempty"`
+	Tags        []string     `json:"tags,omitempty"`
+	Icon        Icon         `json:"icon,omitempty"`
+	Examples    []Example    `json:"examples,omitempty"`
 }
 
 type Example struct {
@@ -50,9 +46,9 @@ type Example struct {
 }
 
 type Icon struct {
-	Type       string `json:"type"`
-	URL        string `json:"url"`
-	Background string `json:"background"`
+	Type       string `json:"type,omitempty"`
+	URL        string `json:"url,omitempty"`
+	Background string `json:"background,omitempty"`
 }
 
 type Maintainer struct {
@@ -61,8 +57,8 @@ type Maintainer struct {
 }
 
 type Spec struct {
-	Arguments     string     `json:"arguments"`
-	Returns       string     `json:"returns"`
+	Arguments     string     `json:"arguments,omitempty"`
+	Returns       string     `json:"returns,omitempty"`
 	Delimiters    Delimiters `json:"delimiters"`
 	StepsTemplate string     `json:"stepsTemplate"`
 }

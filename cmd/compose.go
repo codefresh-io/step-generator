@@ -80,23 +80,23 @@ var composeCmd = &cobra.Command{
 func init() {
 	cnf.SetDefault("leftDelimiter", "[[")
 
-	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.leftDelimiter, "left-delimiter", cnf.GetString("leftDelimiter"), "")
+	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.leftDelimiter, "left-delimiter", cnf.GetString("leftDelimiter"), "Left delimiter to use in spec file")
 	cnf.SetDefault("rightDelimiter", "]]")
 
-	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.rightDelimiter, "right-delimiter", cnf.GetString("rightDelimiter"), "")
+	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.rightDelimiter, "right-delimiter", cnf.GetString("rightDelimiter"), "Right delimiter to use in spec file")
 
-	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.specFile, "spec-file", cnf.GetString("specFile"), "")
+	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.specFile, "spec-file", cnf.GetString("specFile"), "Path to Codefresh template spec file")
 
-	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.argumentsJsonFile, "arguments-json-file", cnf.GetString("argumentsJsonFile"), "")
+	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.argumentsJsonFile, "arguments-json-file", cnf.GetString("argumentsJsonFile"), "Path to Codefresh JSON-schema arguments file")
 
-	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.returnsJsonFile, "returns-json-file", cnf.GetString("returnsJsonFile"), "")
+	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.returnsJsonFile, "returns-json-file", cnf.GetString("returnsJsonFile"), "Path to Codefresh JSON-schema returns file")
 
-	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.descriptionFile, "description-file", cnf.GetString("descriptionFile"), "")
+	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.descriptionFile, "description-file", cnf.GetString("descriptionFile"), "Path to step-type description file")
 	cnf.SetDefault("version", "0.1.0")
 
-	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.version, "version", cnf.GetString("version"), "")
+	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.version, "version", cnf.GetString("version"), "Version of the step-type")
 
-	composeCmd.PersistentFlags().BoolVar(&composeCmdOptions.official, "official", cnf.GetBool("official"), "")
+	composeCmd.PersistentFlags().BoolVar(&composeCmdOptions.official, "official", cnf.GetBool("official"), "Set if the step-type if an official one")
 
 	composeCmd.PersistentFlags().StringArrayVar(&composeCmdOptions.tags, "tags", cnf.GetStringSlice("tags"), "")
 
@@ -104,10 +104,10 @@ func init() {
 
 	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.maintainerEmail, "maintainer-email", cnf.GetString("maintainerEmail"), "")
 
-	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.account, "account", cnf.GetString("account"), "")
+	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.account, "account", cnf.GetString("account"), "Name of the account that the step-type is maintained by")
 
-	composeCmd.PersistentFlags().BoolVar(&composeCmdOptions.isPublic, "is-public", cnf.GetBool("isPublic"), "")
+	composeCmd.PersistentFlags().BoolVar(&composeCmdOptions.isPublic, "is-public", cnf.GetBool("isPublic"), "Set to mark step-type as public and accesiable by other accounts as well")
 
-	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.out, "out", cnf.GetString("out"), "")
+	composeCmd.PersistentFlags().StringVar(&composeCmdOptions.out, "out", cnf.GetString("out"), "Name of the output file, if empty the result will be printed to stdout")
 	rootCmd.AddCommand(composeCmd)
 }

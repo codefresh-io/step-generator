@@ -2,7 +2,6 @@
 set -e
 
 build () {
-    VERSION=$(cat ./VERSION)
     packr build -o ./dist/step-generator .
 }
 

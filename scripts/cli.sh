@@ -6,4 +6,3 @@ cli-generator generate \
      --spec ./build/cli.yaml \
     --go-package github.com/codefresh/step-generator \
     --verbose 
-    # --create-handlers
