@@ -4,7 +4,7 @@
 //    stepType, err := UnmarshalStepType(bytes)
 //    bytes, err = stepType.Marshal()
 
-package generate
+package compose
 
 import "encoding/json"
 

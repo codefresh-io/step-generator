@@ -1,4 +1,4 @@
-package generate
+package compose
 
 import (
 	"fmt"
