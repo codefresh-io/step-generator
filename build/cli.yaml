@@ -1,7 +1,7 @@
 metadata:
   name: step-generator
   description: Quickly generate Codefresh step-types
-  version: 0.7.0
+  version: 0.8.0
   maintainers:
     - Oleg Sucharevich
 loose: true
@@ -76,3 +76,9 @@ commands:
     - name: is-public
       type: bool
       description: "Set to mark step-type as public and accesiable by other accounts as well"
+  - name: decompose
+    description: "Decompose Codefresh step-type into seperated file"
+    flags:
+    - name: file
+      description: "Path to file of step-type.yaml"
+      type: string
