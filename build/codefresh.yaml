@@ -31,6 +31,7 @@ steps:
     image: goreleaser/goreleaser
     fail_fast: false
     commands:
+    - go get -u github.com/gobuffalo/packr/packr@v1.30.1
     - goreleaser release -f build/goreleaser.yaml --rm-dist --skip-validate
     when:
       steps:
