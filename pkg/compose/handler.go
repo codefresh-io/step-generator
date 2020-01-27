@@ -4,8 +4,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path"
 
 	"github.com/spf13/viper"
+	"gopkg.in/yaml.v2"
+
+	"github.com/codefresh-io/step-generator/pkg/steptype"
 )
 
 type (
@@ -16,31 +20,33 @@ type (
 // Handle - the function that will be called from the CLI with viper config
 // to provide access to all flags
 func (g *Handler) Handle(cnf *viper.Viper) error {
-	res := StepType{
+	res := steptype.StepType{
 		Version: "1.0",
 		Kind:    "step-type",
-		Metadata: Metadata{
-			Version:  cnf.GetString("version"),
-			Official: cnf.GetBool("official"),
-			IsPublic: cnf.GetBool("isPublic"),
-			Tags:     cnf.GetStringSlice("tags"),
+		Metadata: steptype.Metadata{
+			Version: cnf.GetString("version"),
 		},
-		Spec: Spec{
-			Delimiters: Delimiters{
+		Spec: steptype.Spec{
+			Delimiters: steptype.Delimiters{
 				Left:  cnf.GetString("leftDelimiter"),
 				Right: cnf.GetString("rightDelimiter"),
 			},
 		},
 	}
-
-	acc := cnf.GetString("account")
-	name := cnf.GetStringSlice("name")[0]
-	if acc != "" {
-		res.Metadata.Name = fmt.Sprintf("%s/%s", acc, name)
-	} else {
-		res.Metadata.Name = name
-	}
 	specFilePath := cnf.GetString("specFile")
+	argumentsJSONFilePath := cnf.GetString("argumentsJsonFile")
+	returnsJSONFilePath := cnf.GetString("returnsJsonFile")
+	metadataFilePath := cnf.GetString("metadataFile")
+
+	directory := cnf.GetString("directory")
+	if directory != "" {
+		fmt.Printf("Direcotyr given, using default values inside it")
+		specFilePath = path.Join(directory, "spectemplate.yaml.tmpl")
+		argumentsJSONFilePath = path.Join(directory, "arguments.json")
+		returnsJSONFilePath = path.Join(directory, "returns.json")
+		metadataFilePath = path.Join(directory, "metadata.yaml")
+	}
+
 	if specFilePath != "" {
 		fmt.Printf("Reading spec file %s\n", specFilePath)
 		specFileBytes, err := ioutil.ReadFile(specFilePath)
@@ -50,7 +56,6 @@ func (g *Handler) Handle(cnf *viper.Viper) error {
 		}
 	}
 
-	argumentsJSONFilePath := cnf.GetString("argumentsJsonFile")
 	if specFilePath != "" {
 		fmt.Printf("Reading arguments json file %s\n", specFilePath)
 		argumentsJSONBytes, err := ioutil.ReadFile(argumentsJSONFilePath)
@@ -60,7 +65,6 @@ func (g *Handler) Handle(cnf *viper.Viper) error {
 		}
 	}
 
-	returnsJSONFilePath := cnf.GetString("returnsJsonFile")
 	if returnsJSONFilePath != "" {
 		fmt.Printf("Reading returns json file %s\n", returnsJSONFilePath)
 		returnsJSONBytes, err := ioutil.ReadFile(returnsJSONFilePath)
@@ -70,23 +74,15 @@ func (g *Handler) Handle(cnf *viper.Viper) error {
 		}
 	}
 
-	descriptionFilePath := cnf.GetString("descriptionFile")
-	if descriptionFilePath != "" {
-		fmt.Printf("Reading description file %s\n", descriptionFilePath)
-		descriptionBytes, err := ioutil.ReadFile(descriptionFilePath)
-		res.Metadata.Description = string(descriptionBytes)
+	if metadataFilePath != "" {
+		fmt.Printf("Reading description file %s\n", metadataFilePath)
+		metadataFileBytes, err := ioutil.ReadFile(metadataFilePath)
 		if err != nil {
 			return err
 		}
-	}
-	maintainerName := cnf.GetString("maintainerName")
-	maintainerEmail := cnf.GetString("maintainerEmail")
-	if maintainerName != "" && maintainerEmail != "" {
-		res.Metadata.Maintainers = []Maintainer{
-			Maintainer{
-				Name:  maintainerName,
-				Email: maintainerEmail,
-			},
+		err = yaml.Unmarshal(metadataFileBytes, &res.Metadata)
+		if err != nil {
+			return err
 		}
 	}
 

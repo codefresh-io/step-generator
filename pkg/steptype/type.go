@@ -4,7 +4,7 @@
 //    stepType, err := UnmarshalStepType(bytes)
 //    bytes, err = stepType.Marshal()
 
-package compose
+package steptype
 
 import "encoding/json"
 
@@ -28,7 +28,7 @@ type StepType struct {
 type Metadata struct {
 	Name        string       `json:"name"`
 	Version     string       `json:"version"`
-	IsPublic    bool         `json:"isPublic"`
+	IsPublic    bool         `json:"isPublic,omitempty"`
 	Description string       `json:"description,omitempty"`
 	Sources     []string     `json:"sources,omitempty"`
 	Stage       string       `json:"stage,omitempty"`

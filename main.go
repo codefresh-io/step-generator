@@ -2,7 +2,7 @@
 package main
 
 import (
-	cmd "github.com/codefresh/step-generator/cmd"
+	cmd "github.com/codefresh-io/step-generator/cmd"
 )
 
 func main() {
