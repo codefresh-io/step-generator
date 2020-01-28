@@ -40,7 +40,7 @@ func (g *Handler) Handle(cnf *viper.Viper) error {
 
 	directory := cnf.GetString("directory")
 	if directory != "" {
-		fmt.Printf("Direcotyr given, using default values inside it")
+		fmt.Printf("Directory given, using default values inside it")
 		specFilePath = path.Join(directory, "spectemplate.yaml.tmpl")
 		argumentsJSONFilePath = path.Join(directory, "arguments.json")
 		returnsJSONFilePath = path.Join(directory, "returns.json")
